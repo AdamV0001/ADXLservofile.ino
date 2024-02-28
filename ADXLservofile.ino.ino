@@ -1,9 +1,9 @@
 //declare variables for the motor pins
 //Motor3 pins
-int motorUppNedPin1 = 9;   // Blue - 28BYJ48 pin 1
-int motorUppNedPin2 = 10;  // Pink - 28BYJ48 pin 2
-int motorUppNedPin3 = 11;  // Yellow - 28BYJ48 pin 3
-int motorUppNedPin4 = 12;  // Orange - 28BYJ48 pin 4
+int motorUppNedPin1 = 9;   // Blue - 28BYJ48 pin 9
+int motorUppNedPin2 = 10;  // Pink - 28BYJ48 pin 10
+int motorUppNedPin3 = 11;  // Yellow - 28BYJ48 pin 11
+int motorUppNedPin4 = 12;  // Orange - 28BYJ48 pin 12
 const int knapp1 = 7;
 const int knapp2 = 6;
 
@@ -24,11 +24,12 @@ void setup() {
 }
 
 void loop() {
+  // when button pressed, motor spins upward
   if (digitalRead(knapp1) == 1) {
 
     uppat();
   }
-
+  // when other button pressed, motor spins downward
   if (digitalRead(knapp2) == 1) {
 
     nerat();
@@ -37,22 +38,25 @@ void loop() {
 
 
 void nerat() {
+  // Loop to move the motor downward
   for (int i = 0; i < 8; i++) {
-    setOutputUppNed(i);
-    delayMicroseconds(motorSpeed);
-    Serial.print("Ned ");
+    setOutputUppNed(i); // Set motor output pins based on current step
+    delayMicroseconds(motorSpeed); // Delay for motor speed
+    Serial.print("Ned "); // Print "Ned" to Serial monitor
   }
 }
 
 void uppat() {
+  // Loop to move the motor upward
   for (int i = 7; i >= 0; i--) {
-    setOutputUppNed(i);
-    delayMicroseconds(motorSpeed);
-    Serial.print("Upp ");
+    setOutputUppNed(i); // Set motor output pins based on current step
+    delayMicroseconds(motorSpeed); // Delay for motor speed
+    Serial.print("Upp "); // Print "Upp" to Serial monitor
   }
 }
 
 void setOutputUppNed(int out) {
+  // Set motor output pins based on the value of 'out'
   digitalWrite(motorUppNedPin1, bitRead(lookup[out], 0));
   digitalWrite(motorUppNedPin2, bitRead(lookup[out], 1));
   digitalWrite(motorUppNedPin3, bitRead(lookup[out], 2));
